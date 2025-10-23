@@ -12,7 +12,7 @@
             box-sizing: border-box;
         }
 
-
+```
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
@@ -317,7 +317,7 @@
         color: #c33;
     }
 </style>
-
+```
 
 </head>
 <body>
@@ -328,7 +328,7 @@
         </nav>
     </header>
 
-
+```
 <main class="container">
     <div class="status-container">
         <div id="loadingMessage" class="loading">
@@ -394,7 +394,7 @@
                         <div class="timeline-content">
                             <div class="timeline-title">Package Processed</div>
                             <div class="timeline-description">Your package has been received and processed at our Niagara Falls facility</div>
-                            <div class="timeline-time">September 8, 2025 - 10:30 AM</div>
+                            <div class="timeline-time" id="date1">October 11, 2025 - 10:30 AM</div>
                         </div>
                     </div>
 
@@ -403,7 +403,7 @@
                         <div class="timeline-content">
                             <div class="timeline-title">In Transit</div>
                             <div class="timeline-description">Package departed from origin facility and is on its way</div>
-                            <div class="timeline-time">September 9, 2025 - 6:45 AM</div>
+                            <div class="timeline-time" id="date2">October 11, 2025 - 6:45 PM</div>
                         </div>
                     </div>
 
@@ -412,7 +412,7 @@
                         <div class="timeline-content">
                             <div class="timeline-title">Out for Delivery</div>
                             <div class="timeline-description">Your package is currently out for delivery and will arrive today</div>
-                            <div class="timeline-time">September 10, 2025 - 8:15 AM</div>
+                            <div class="timeline-time" id="date3">October 11, 2025 - 8:15 PM</div>
                         </div>
                     </div>
 
@@ -421,7 +421,7 @@
                         <div class="timeline-content">
                             <div class="timeline-title">Delivered</div>
                             <div class="timeline-description">Package will be delivered to your specified address</div>
-                            <div class="timeline-time">Estimated: Today by 6:00 PM</div>
+                            <div class="timeline-time">Estimated: Today by 11:59 PM</div>
                         </div>
                     </div>
                 </div>
@@ -459,7 +459,6 @@
 </footer>
 
 <script>
-    // Valid tracking numbers array - must match the main site
     const validTrackingNumbers = [
         'A1X7K9M2P', 'B3N8R5Q1W', 'C9F2L6Y4T', 'D4H7V3Z8G', 'E6M1X9K5N',
         'F8Q3B7R2S', 'G2W9T4J6L', 'H5Z8P1C3V', 'J7M4N9X2K', 'K1R6Q8F3B',
@@ -467,7 +466,6 @@
         'R2G9K4T1Z', 'S5L8Q3W7Y', 'T9H6P2M4X', 'V1C7R5B8N', 'W3Z4K9L6Q'
     ];
 
-    // Package status variations for different tracking numbers
     const packageStatuses = [
         'Out for Delivery',
         'In Transit',
@@ -476,13 +474,54 @@
         'Ready for Pickup'
     ];
 
-    // Function to get user's location based on IP
+    // Function to check if this is a first-time visitor based on IP
+    function checkFirstTimeVisitor() {
+        const visitKey = 'tracking_visited';
+        const hasVisited = sessionStorage.getItem(visitKey);
+        
+        if (!hasVisited) {
+            sessionStorage.setItem(visitKey, 'true');
+            return true; // First time in this session
+        }
+        return false; // Returning visitor
+    }
+
+    // Function to get current date or October 11 based on visitor status
+    function getDisplayDates() {
+        const isFirstTime = checkFirstTimeVisitor();
+        
+        if (isFirstTime) {
+            // First-time visitor: show current dates
+            const now = new Date();
+            const today = now.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            const time1 = '10:30 AM';
+            const time2 = '6:45 PM';
+            const time3 = '8:15 PM';
+            
+            return {
+                date1: `${today} - ${time1}`,
+                date2: `${today} - ${time2}`,
+                date3: `${today} - ${time3}`
+            };
+        } else {
+            // Returning visitor: show October 11, 2025
+            return {
+                date1: 'October 11, 2025 - 10:30 AM',
+                date2: 'October 11, 2025 - 6:45 PM',
+                date3: 'October 11, 2025 - 8:15 PM'
+            };
+        }
+    }
+
     async function getUserLocation() {
         try {
-            // Try multiple IP geolocation services for reliability
             const services = [
                 'https://ipapi.co/json/',
-                'https://api.ipify.org?format=json', // Fallback - just gets IP
                 'https://ipinfo.io/json'
             ];
 
@@ -506,49 +545,11 @@
                 }
             }
 
-            // If all services fail, return default
             return 'Your Location';
-
         } catch (error) {
             console.error('Error getting user location:', error);
             return 'Your Location';
         }
-    }
-
-    // Alternative function using browser geolocation API (requires user permission)
-    function getBrowserLocation() {
-        return new Promise((resolve) => {
-            if (!navigator.geolocation) {
-                resolve('Your Location');
-                return;
-            }
-
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    try {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-
-                        // Use reverse geocoding to get city/state
-                        const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-                        const data = await response.json();
-
-                        if (data.city && data.principalSubdivision) {
-                            resolve(`${data.city}, ${data.principalSubdivision}`);
-                        } else {
-                            resolve('Your Location');
-                        }
-                    } catch (error) {
-                        resolve('Your Location');
-                    }
-                },
-                () => {
-                    // User denied permission or error occurred
-                    resolve('Your Location');
-                },
-                { timeout: 5000 }
-            );
-        });
     }
 
     function getUrlParameter(name) {
@@ -565,48 +566,6 @@
         return now.toLocaleDateString() + ' - ' + now.toLocaleTimeString();
     }
 
-    function loadTrackingInfo() {
-        const trackingNumber = getUrlParameter('tracking');
-
-        // Start getting user location immediately
-        const locationPromise = getUserLocation();
-
-        // Simulate loading time
-        setTimeout(async () => {
-            document.getElementById('loadingMessage').style.display = 'none';
-
-            if (!trackingNumber || !validTrackingNumbers.includes(trackingNumber.toUpperCase())) {
-                document.getElementById('errorMessage').style.display = 'block';
-                return;
-            }
-
-            // Display tracking information
-            document.getElementById('trackingNumber').textContent = trackingNumber.toUpperCase();
-
-            // Set random status with appropriate badge
-            const status = getRandomStatus();
-            const statusElement = document.getElementById('packageStatus');
-            statusElement.innerHTML = `<span class="status-badge status-in-transit">${status}</span>`;
-
-            // Set current time as last update
-            document.getElementById('lastUpdate').textContent = getCurrentDateTime();
-
-            // Get and set user location as destination
-            try {
-                const userLocation = await locationPromise;
-                document.getElementById('destination').textContent = userLocation;
-
-                // Update timeline descriptions to include user's location
-                updateTimelineWithLocation(userLocation);
-            } catch (error) {
-                document.getElementById('destination').textContent = 'Your Location';
-            }
-
-            document.getElementById('trackingContent').style.display = 'block';
-        }, 1500);
-    }
-
-    // Function to update timeline with user's location
     function updateTimelineWithLocation(location) {
         const timelineItems = document.querySelectorAll('.timeline-description');
         if (timelineItems.length >= 3) {
@@ -617,10 +576,47 @@
         }
     }
 
-    // Load tracking info when page loads
+    function loadTrackingInfo() {
+        const trackingNumber = getUrlParameter('tracking');
+        const locationPromise = getUserLocation();
+
+        setTimeout(async () => {
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            if (!trackingNumber || !validTrackingNumbers.includes(trackingNumber.toUpperCase())) {
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('trackingNumber').textContent = trackingNumber.toUpperCase();
+
+            const status = getRandomStatus();
+            const statusElement = document.getElementById('packageStatus');
+            statusElement.innerHTML = `<span class="status-badge status-in-transit">${status}</span>`;
+
+            document.getElementById('lastUpdate').textContent = getCurrentDateTime();
+
+            // Update dates based on visitor status
+            const dates = getDisplayDates();
+            document.getElementById('date1').textContent = dates.date1;
+            document.getElementById('date2').textContent = dates.date2;
+            document.getElementById('date3').textContent = dates.date3;
+
+            try {
+                const userLocation = await locationPromise;
+                document.getElementById('destination').textContent = userLocation;
+                updateTimelineWithLocation(userLocation);
+            } catch (error) {
+                document.getElementById('destination').textContent = 'Your Location';
+            }
+
+            document.getElementById('trackingContent').style.display = 'block';
+        }, 1500);
+    }
+
     document.addEventListener('DOMContentLoaded', loadTrackingInfo);
 </script>
-
+```
 
 </body>
 </html>
