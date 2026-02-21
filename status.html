@@ -5,618 +5,817 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Package Status - A1 INNOVECS Logistics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --cyan: #00f5ff;
+            --electric: #7b2fff;
+            --neon-green: #00ff88;
+            --neon-orange: #ff8c00;
+            --neon-red: #ff4458;
+            --dark: #020818;
+            --dark2: #050d1f;
+            --dark3: #0a1628;
+            --panel: rgba(0, 245, 255, 0.04);
+            --border: rgba(0, 245, 255, 0.15);
+            --text: #c8e0ff;
+            --text-dim: #5a7a9f;
         }
 
 ```
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Rajdhani', sans-serif;
+        background: var(--dark);
+        color: var(--text);
         min-height: 100vh;
+        overflow-x: hidden;
+        cursor: none;
     }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+    /* CUSTOM CURSOR */
+    .cursor {
+        position: fixed;
+        width: 8px; height: 8px;
+        background: var(--cyan);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan);
+    }
+    .cursor-ring {
+        position: fixed;
+        width: 32px; height: 32px;
+        border: 1px solid rgba(0, 245, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99998;
+        transition: transform 0.15s ease, width 0.2s, height 0.2s;
     }
 
+    /* BACKGROUND */
+    .bg-grid {
+        position: fixed; inset: 0;
+        background-image:
+            linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none; z-index: 0;
+    }
+    .bg-glow {
+        position: fixed; inset: 0; pointer-events: none; z-index: 0;
+        background:
+            radial-gradient(ellipse 800px 500px at 20% 10%, rgba(123,47,255,0.12) 0%, transparent 70%),
+            radial-gradient(ellipse 600px 400px at 80% 80%, rgba(0,245,255,0.08) 0%, transparent 70%);
+    }
+    .scanlines {
+        position: fixed; inset: 0;
+        background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+        pointer-events: none; z-index: 1;
+    }
+
+    /* PARTICLES */
+    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .particle {
+        position: absolute; width: 2px; height: 2px;
+        background: var(--cyan); border-radius: 50%;
+        animation: float-up linear infinite; opacity: 0;
+    }
+    @keyframes float-up {
+        0% { transform: translateY(100vh); opacity: 0; }
+        10% { opacity: 0.6; } 90% { opacity: 0.6; }
+        100% { transform: translateY(-100px) translateX(var(--drift)); opacity: 0; }
+    }
+
+    /* HEADER */
     header {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
+        position: fixed; top: 0; left: 0; right: 0;
+        z-index: 1000; padding: 0 2rem;
+        border-bottom: 1px solid var(--border);
+        background: rgba(2, 8, 24, 0.85);
+        backdrop-filter: blur(20px);
     }
-
     nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
+        max-width: 1300px; margin: 0 auto;
+        display: flex; align-items: center;
+        justify-content: space-between; height: 70px;
     }
-
     .logo {
-        font-size: 2rem;
-        font-weight: 800;
-        color: #667eea;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    .back-btn {
-        background: linear-gradient(45deg, #667eea, #764ba2);
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s ease;
+        font-family: 'Orbitron', monospace;
+        font-size: 1.3rem; font-weight: 900;
+        letter-spacing: 3px; color: var(--cyan);
+        text-shadow: 0 0 20px rgba(0,245,255,0.5);
+        display: flex; align-items: center; gap: 12px;
         text-decoration: none;
-        display: inline-block;
+    }
+    .logo-icon {
+        width: 36px; height: 36px;
+        border: 2px solid var(--cyan); border-radius: 6px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem;
+        box-shadow: 0 0 15px rgba(0,245,255,0.3), inset 0 0 15px rgba(0,245,255,0.05);
+    }
+    .back-btn {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.7rem; font-weight: 700;
+        letter-spacing: 2px; padding: 10px 22px;
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-dim); border-radius: 4px;
+        cursor: none; text-transform: uppercase;
+        transition: all 0.3s; text-decoration: none;
+        display: inline-block; position: relative; overflow: hidden;
+    }
+    .back-btn::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: rgba(0,245,255,0.08);
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+    .back-btn:hover::before { transform: translateX(0); }
+    .back-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+
+    /* MAIN */
+    main {
+        position: relative; z-index: 2;
+        max-width: 1000px; margin: 0 auto;
+        padding: 100px 2rem 4rem;
     }
 
-    .back-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    /* LOADING */
+    .loading-screen {
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        min-height: 60vh; gap: 1.5rem;
     }
-
-    .status-container {
-        padding: 3rem 0;
+    .loader-ring {
+        width: 64px; height: 64px;
+        border: 2px solid var(--border);
+        border-top-color: var(--cyan);
+        border-radius: 50%;
+        animation: spin-loader 0.8s linear infinite;
     }
+    @keyframes spin-loader { to { transform: rotate(360deg); } }
+    .loading-text {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.85rem; color: var(--text-dim);
+        letter-spacing: 3px; text-transform: uppercase;
+    }
+    .loading-dots::after {
+        content: '';
+        animation: dots 1.5s steps(4, end) infinite;
+    }
+    @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%{content:'...'} 80%,100%{content:''} }
 
+    /* TRACKING HEADER */
     .tracking-header {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        text-align: center;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 2rem 2.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.5s ease forwards;
     }
-
-    .tracking-number {
-        font-size: 2rem;
-        color: #667eea;
-        font-weight: 700;
+    .tracking-header::before {
+        content: '';
+        position: absolute; top: -1px; left: 20px; right: 20px; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        box-shadow: 0 0 20px var(--cyan);
+    }
+    .tracking-header::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(135deg, rgba(0,245,255,0.03) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .header-top {
+        display: flex; align-items: center;
+        justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .header-label {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.7rem; color: var(--text-dim);
+        letter-spacing: 3px; text-transform: uppercase;
         margin-bottom: 0.5rem;
     }
-
-    .tracking-subtitle {
-        color: #666;
-        font-size: 1.1rem;
+    .tracking-id {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.8rem; font-weight: 700;
+        color: var(--cyan);
+        text-shadow: 0 0 20px rgba(0,245,255,0.4);
+        letter-spacing: 4px;
     }
-
-    .status-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 2.5rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    .status-badge {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.65rem; font-weight: 700;
+        letter-spacing: 2px; text-transform: uppercase;
+        padding: 8px 16px; border-radius: 4px;
+        display: inline-flex; align-items: center; gap: 8px;
     }
+    .badge-transit {
+        background: rgba(123,47,255,0.2);
+        border: 1px solid rgba(123,47,255,0.5);
+        color: #b06aff;
+    }
+    .badge-delivered {
+        background: rgba(0,255,136,0.15);
+        border: 1px solid rgba(0,255,136,0.4);
+        color: var(--neon-green);
+    }
+    .badge-pending {
+        background: rgba(255,140,0,0.15);
+        border: 1px solid rgba(255,140,0,0.4);
+        color: var(--neon-orange);
+    }
+    .badge-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        animation: blink 1.5s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    .status-timeline {
+    /* DETAILS GRID */
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.5s 0.1s ease both;
+    }
+    .detail-panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.5rem;
         position: relative;
     }
+    .detail-panel::before {
+        content: '';
+        position: absolute; left: 0; top: 20%; bottom: 20%;
+        width: 2px;
+        background: linear-gradient(180deg, transparent, var(--cyan), transparent);
+    }
+    .panel-heading {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.7rem; color: var(--cyan);
+        letter-spacing: 3px; text-transform: uppercase;
+        margin-bottom: 1.2rem; padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border);
+    }
+    .detail-row {
+        display: flex; justify-content: space-between;
+        align-items: flex-start; padding: 0.5rem 0;
+        font-size: 0.95rem;
+    }
+    .detail-row:not(:last-child) { border-bottom: 1px solid rgba(0,245,255,0.06); }
+    .d-label { color: var(--text-dim); font-weight: 400; }
+    .d-value { color: var(--text); font-weight: 600; text-align: right; max-width: 55%; }
 
-    .timeline-item {
-        display: flex;
-        align-items: flex-start;
+    /* TIMELINE */
+    .timeline-panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 2rem 2.5rem;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.5s 0.2s ease both;
+    }
+    .panel-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.9rem; font-weight: 700;
+        color: white; letter-spacing: 2px;
         margin-bottom: 2rem;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .panel-title::after {
+        content: '';
+        flex: 1; height: 1px;
+        background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    .timeline { position: relative; }
+    .tl-item {
+        display: flex; align-items: flex-start;
+        gap: 1.5rem; padding-bottom: 2rem;
         position: relative;
     }
-
-    .timeline-item:last-child {
-        margin-bottom: 0;
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-left {
+        display: flex; flex-direction: column;
+        align-items: center; flex-shrink: 0;
     }
-
-    .timeline-icon {
-        width: 50px;
-        height: 50px;
+    .tl-icon {
+        width: 44px; height: 44px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        margin-right: 1.5rem;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; position: relative; z-index: 1;
         flex-shrink: 0;
     }
-
-    .timeline-icon.completed {
-        background: linear-gradient(45deg, #4CAF50, #45a049);
-        color: white;
+    .tl-icon.done {
+        background: rgba(0,255,136,0.15);
+        border: 1px solid rgba(0,255,136,0.4);
+        color: var(--neon-green);
     }
-
-    .timeline-icon.current {
-        background: linear-gradient(45deg, #667eea, #764ba2);
-        color: white;
-        animation: pulse 2s infinite;
+    .tl-icon.active {
+        background: rgba(0,245,255,0.1);
+        border: 1px solid var(--cyan);
+        color: var(--cyan);
+        box-shadow: 0 0 20px rgba(0,245,255,0.2);
+        animation: pulse-icon 2s infinite;
     }
-
-    .timeline-icon.pending {
-        background: #f0f0f0;
-        color: #999;
+    .tl-icon.waiting {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: var(--text-dim);
     }
-
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
-        70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+    @keyframes pulse-icon {
+        0%,100% { box-shadow: 0 0 20px rgba(0,245,255,0.2); }
+        50% { box-shadow: 0 0 40px rgba(0,245,255,0.4); }
     }
-
-    .timeline-content {
-        flex: 1;
+    .tl-line {
+        width: 1px; flex: 1; min-height: 30px;
+        background: linear-gradient(180deg, rgba(0,245,255,0.3), rgba(0,245,255,0.05));
+        margin-top: 4px;
     }
-
-    .timeline-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 0.5rem;
+    .tl-item:last-child .tl-line { display: none; }
+    .tl-content { padding-top: 8px; flex: 1; }
+    .tl-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.85rem; font-weight: 600;
+        color: white; letter-spacing: 1px; margin-bottom: 0.4rem;
     }
-
-    .timeline-description {
-        color: #666;
-        margin-bottom: 0.5rem;
-    }
-
-    .timeline-time {
-        color: #999;
-        font-size: 0.9rem;
-    }
-
-    .timeline-line {
-        position: absolute;
-        left: 25px;
-        top: 50px;
-        width: 2px;
-        height: calc(100% - 50px);
-        background: linear-gradient(to bottom, #667eea, #f0f0f0);
-    }
-
-    .package-details {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .detail-card {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 15px;
-        border-left: 4px solid #667eea;
-    }
-
-    .detail-title {
-        font-weight: 600;
-        color: #667eea;
-        margin-bottom: 1rem;
-        font-size: 1.1rem;
-    }
-
-    .detail-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #eee;
-    }
-
-    .detail-item:last-child {
-        border-bottom: none;
-    }
-
-    .detail-label {
-        color: #666;
-        font-weight: 500;
-    }
-
-    .detail-value {
-        color: #333;
-        font-weight: 600;
-    }
-
-    .fee-alert {
-        background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-        color: #8b0000;
-        padding: 2rem;
-        border-radius: 15px;
-        text-align: center;
-        margin-top: 2rem;
-        box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
-    }
-
-    .fee-amount {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin: 1rem 0;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .fee-description {
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-
-    .contact-info {
-        background: rgba(102, 126, 234, 0.1);
-        padding: 1rem;
-        border-radius: 10px;
-        font-size: 0.9rem;
-    }
-
-    .status-badge {
-        display: inline-block;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-transform: uppercase;
+    .tl-title.dim { color: var(--text-dim); }
+    .tl-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 0.4rem; }
+    .tl-time {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.72rem; color: var(--text-dim);
         letter-spacing: 1px;
     }
+    .tl-time.active { color: var(--cyan); }
 
-    .status-in-transit {
-        background: linear-gradient(45deg, #667eea, #764ba2);
-        color: white;
-    }
-
-    .status-delivered {
-        background: linear-gradient(45deg, #4CAF50, #45a049);
-        color: white;
-    }
-
-    .status-pending {
-        background: linear-gradient(45deg, #ff9800, #f57c00);
-        color: white;
-    }
-
-    .footer {
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 2rem 0;
+    /* FEE ALERT */
+    .fee-alert {
+        background: rgba(255, 68, 88, 0.06);
+        border: 1px solid rgba(255, 68, 88, 0.3);
+        border-radius: 12px;
+        padding: 2.5rem;
         text-align: center;
-        margin-top: 3rem;
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.5s 0.3s ease both;
+    }
+    .fee-alert::before {
+        content: '';
+        position: absolute; top: -1px; left: 30px; right: 30px; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
+        box-shadow: 0 0 20px var(--neon-red);
+    }
+    .fee-alert::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(255,68,88,0.05) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .alert-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .alert-tag {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.7rem; letter-spacing: 4px;
+        color: var(--neon-red); text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+    .alert-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1rem; font-weight: 700;
+        color: white; letter-spacing: 2px;
+        margin-bottom: 1rem;
+    }
+    .fee-amount {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem; font-weight: 900;
+        color: var(--neon-red);
+        text-shadow: 0 0 30px rgba(255,68,88,0.4);
+        margin-bottom: 0.5rem;
+        letter-spacing: 2px;
+    }
+    .fee-desc {
+        font-size: 1rem; color: var(--text-dim);
+        max-width: 500px; margin: 0 auto 2rem;
+        line-height: 1.7;
+    }
+    .contact-strip {
+        display: flex; gap: 1rem;
+        justify-content: center; flex-wrap: wrap;
+    }
+    .contact-chip {
+        background: rgba(0,245,255,0.05);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.85rem 1.25rem;
+        display: flex; align-items: center; gap: 10px;
+        transition: border-color 0.3s;
+    }
+    .contact-chip:hover { border-color: var(--cyan); }
+    .chip-label {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.65rem; color: var(--text-dim);
+        letter-spacing: 2px; display: block; margin-bottom: 2px;
+    }
+    .chip-val { font-size: 0.9rem; color: var(--cyan); font-weight: 600; }
+
+    /* ERROR */
+    .error-screen {
+        display: flex; flex-direction: column;
+        align-items: center; text-align: center;
+        padding: 5rem 2rem; gap: 1rem;
+    }
+    .error-code {
+        font-family: 'Orbitron', monospace;
+        font-size: 4rem; font-weight: 900;
+        color: var(--neon-red);
+        text-shadow: 0 0 30px rgba(255,68,88,0.4);
+    }
+    .error-msg {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.85rem; color: var(--text-dim);
+        letter-spacing: 2px;
+    }
+    .error-sub { font-size: 1rem; color: var(--text-dim); max-width: 400px; line-height: 1.6; margin-top: 0.5rem; }
+    .error-btn {
+        font-family: 'Orbitron', monospace;
+        font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+        padding: 12px 28px; border: 1px solid var(--cyan);
+        color: var(--cyan); border-radius: 4px;
+        text-decoration: none; text-transform: uppercase;
+        transition: all 0.3s; margin-top: 1rem; cursor: none;
+        display: inline-block; position: relative; overflow: hidden;
+    }
+    .error-btn::before {
+        content: ''; position: absolute; inset: 0;
+        background: var(--cyan); transform: translateX(-100%); transition: transform 0.3s;
+    }
+    .error-btn:hover::before { transform: translateX(0); }
+    .error-btn:hover { color: var(--dark); box-shadow: 0 0 30px rgba(0,245,255,0.4); }
+    .error-btn span { position: relative; z-index: 1; }
+
+    /* FOOTER */
+    footer {
+        position: relative; z-index: 2;
+        border-top: 1px solid var(--border);
+        padding: 2.5rem 2rem;
+        background: rgba(0,0,0,0.3);
+    }
+    .footer-inner {
+        max-width: 1300px; margin: 0 auto;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px;
     }
 
-    @media (max-width: 768px) {
-        .package-details {
-            grid-template-columns: 1fr;
-        }
-
-        .tracking-number {
-            font-size: 1.5rem;
-        }
-
-        .status-card {
-            padding: 1.5rem;
-        }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    .loading {
-        text-align: center;
-        padding: 3rem;
-        color: white;
-        font-size: 1.2rem;
-    }
-
-    .error-message {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 3rem;
-        border-radius: 20px;
-        text-align: center;
-        color: #c33;
+    @media (max-width: 700px) {
+        .details-grid { grid-template-columns: 1fr; }
+        .tracking-id { font-size: 1.3rem; }
+        .fee-amount { font-size: 2rem; }
+        .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
     }
 </style>
 ```
 
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">A1 INNOVECS</div>
-            <a href="index.html" class="back-btn">← Back to Home</a>
-        </nav>
-    </header>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div class="scanlines"></div>
+<div class="particles" id="particles"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⬡</div>
+            A1 INNOVECS
+        </a>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </nav>
+</header>
+
+<main>
+    <!-- LOADING -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loader-ring"></div>
+        <div class="loading-text">Scanning package data<span class="loading-dots"></span></div>
+    </div>
 
 ```
-<main class="container">
-    <div class="status-container">
-        <div id="loadingMessage" class="loading">
-            <h2>Loading package information...</h2>
-            <p>Please wait while we fetch your tracking details.</p>
-        </div>
+<!-- CONTENT (hidden until loaded) -->
+<div id="trackingContent" style="display:none;">
 
-        <div id="trackingContent" style="display: none;">
-            <div class="tracking-header">
-                <div class="tracking-number" id="trackingNumber"></div>
-                <div class="tracking-subtitle">Package Tracking Information</div>
+    <!-- Header -->
+    <div class="tracking-header">
+        <div class="header-top">
+            <div>
+                <div class="header-label">// Tracking ID</div>
+                <div class="tracking-id" id="trackingNumber">---</div>
             </div>
-
-            <div class="package-details">
-                <div class="detail-card">
-                    <div class="detail-title">📦 Package Information</div>
-                    <div class="detail-item">
-                        <span class="detail-label">Status:</span>
-                        <span class="detail-value" id="packageStatus"></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Service Type:</span>
-                        <span class="detail-value">Express Delivery</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Weight:</span>
-                        <span class="detail-value">2.5 lbs</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Dimensions:</span>
-                        <span class="detail-value">12" × 8" × 4"</span>
-                    </div>
-                </div>
-
-                <div class="detail-card">
-                    <div class="detail-title">📍 Shipping Information</div>
-                    <div class="detail-item">
-                        <span class="detail-label">Origin:</span>
-                        <span class="detail-value">Niagara Falls, NY</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Destination:</span>
-                        <span class="detail-value" id="destination">Detecting location...</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Estimated Delivery:</span>
-                        <span class="detail-value">2-3 Business Days</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Last Update:</span>
-                        <span class="detail-value" id="lastUpdate"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="status-card">
-                <h3 style="margin-bottom: 2rem; color: #333; font-size: 1.5rem;">📋 Tracking Timeline</h3>
-                <div class="status-timeline">
-                    <div class="timeline-line"></div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-icon completed">✓</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Package Processed</div>
-                            <div class="timeline-description">Your package has been received and processed at our Niagara Falls facility</div>
-                            <div class="timeline-time" id="date1">October 11, 2025 - 10:30 AM</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-icon completed">✓</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">In Transit</div>
-                            <div class="timeline-description">Package departed from origin facility and is on its way</div>
-                            <div class="timeline-time" id="date2">October 11, 2025 - 6:45 PM</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-icon current">🚚</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Out for Delivery</div>
-                            <div class="timeline-description">Your package is currently out for delivery and will arrive today</div>
-                            <div class="timeline-time" id="date3">October 11, 2025 - 8:15 PM</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-icon pending">📬</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Delivered</div>
-                            <div class="timeline-description">Package will be delivered to your specified address</div>
-                            <div class="timeline-time">Estimated: Today by 11:59 PM</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="fee-alert">
-                <h3>⚠ Delivery Fee Required</h3>
-                <div class="fee-amount">$200.00</div>
-                <div class="fee-description">
-                    A delivery fee is currently pending for this package. Please contact our support team to complete payment and ensure successful delivery.
-                </div>
-                <div class="contact-info">
-                    <strong>Contact Support:</strong><br>
-                    📧 Email: support@innovecsllc.com<br>
-                    💬 Telegram: @innovecssupport<br>
-                    🕒 Available 24/7
-                </div>
-            </div>
-        </div>
-
-        <div id="errorMessage" class="error-message" style="display: none;">
-            <h2>❌ Invalid Tracking Number</h2>
-            <p>The tracking number you entered is not valid or does not exist in our system.</p>
-            <p style="margin-top: 1rem;">
-                <a href="index.html" class="back-btn">← Return to Tracking</a>
-            </p>
+            <div id="statusBadge"></div>
         </div>
     </div>
+
+    <!-- Details -->
+    <div class="details-grid">
+        <div class="detail-panel">
+            <div class="panel-heading">// Package Info</div>
+            <div class="detail-row">
+                <span class="d-label">Service</span>
+                <span class="d-value">Express Delivery</span>
+            </div>
+            <div class="detail-row">
+                <span class="d-label">Weight</span>
+                <span class="d-value">2.5 lbs</span>
+            </div>
+            <div class="detail-row">
+                <span class="d-label">Dimensions</span>
+                <span class="d-value">12″ × 8″ × 4″</span>
+            </div>
+            <div class="detail-row">
+                <span class="d-label">Last Update</span>
+                <span class="d-value" id="lastUpdate">—</span>
+            </div>
+        </div>
+        <div class="detail-panel">
+            <div class="panel-heading">// Shipment Route</div>
+            <div class="detail-row">
+                <span class="d-label">Origin</span>
+                <span class="d-value">Niagara Falls, NY</span>
+            </div>
+            <div class="detail-row">
+                <span class="d-label">Destination</span>
+                <span class="d-value" id="destination">Detecting…</span>
+            </div>
+            <div class="detail-row">
+                <span class="d-label">Est. Delivery</span>
+                <span class="d-value" id="estDelivery">—</span>
+            </div>
+            <div class="detail-row">
+                <span class="d-label">Carrier</span>
+                <span class="d-value">A1 INNOVECS Express</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-panel">
+        <div class="panel-title">Tracking Timeline</div>
+        <div class="timeline">
+
+            <div class="tl-item">
+                <div class="tl-left">
+                    <div class="tl-icon done">✓</div>
+                    <div class="tl-line"></div>
+                </div>
+                <div class="tl-content">
+                    <div class="tl-title">Package Processed</div>
+                    <div class="tl-desc">Package received and processed at the Niagara Falls facility. All checks passed.</div>
+                    <div class="tl-time" id="date1">—</div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-left">
+                    <div class="tl-icon done">✓</div>
+                    <div class="tl-line"></div>
+                </div>
+                <div class="tl-content">
+                    <div class="tl-title">In Transit</div>
+                    <div class="tl-desc">Package departed origin facility and is en route to the destination hub.</div>
+                    <div class="tl-time" id="date2">—</div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-left">
+                    <div class="tl-icon active">🚚</div>
+                    <div class="tl-line"></div>
+                </div>
+                <div class="tl-content">
+                    <div class="tl-title">Out for Delivery</div>
+                    <div class="tl-desc" id="outForDeliveryDesc">Package is currently out for delivery and will arrive today.</div>
+                    <div class="tl-time active" id="date3">—</div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-left">
+                    <div class="tl-icon waiting">📬</div>
+                    <div class="tl-line"></div>
+                </div>
+                <div class="tl-content">
+                    <div class="tl-title dim">Delivered</div>
+                    <div class="tl-desc" id="deliveredDesc">Package will be delivered to your specified address.</div>
+                    <div class="tl-time" id="estDeliveryTime">—</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Fee Alert -->
+    <div class="fee-alert">
+        <div class="alert-icon">⚠</div>
+        <div class="alert-tag">// ACTION REQUIRED</div>
+        <div class="alert-title">DELIVERY FEE PENDING</div>
+        <div class="fee-amount">$200.00</div>
+        <div class="fee-desc">
+            A delivery fee is currently pending for this package. Please contact our support team to complete payment and ensure successful delivery.
+        </div>
+        <div class="contact-strip">
+            <div class="contact-chip">
+                <span>📧</span>
+                <div>
+                    <span class="chip-label">EMAIL</span>
+                    <span class="chip-val">support@innovecsllc.com</span>
+                </div>
+            </div>
+            <div class="contact-chip">
+                <span>✈️</span>
+                <div>
+                    <span class="chip-label">TELEGRAM</span>
+                    <span class="chip-val">@innovecssupport</span>
+                </div>
+            </div>
+            <div class="contact-chip">
+                <span>🟢</span>
+                <div>
+                    <span class="chip-label">SUPPORT</span>
+                    <span class="chip-val">24 / 7 Live</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ERROR -->
+<div id="errorScreen" style="display:none;" class="error-screen">
+    <div class="error-code">404</div>
+    <div class="error-msg">// ERR — TRACKING_ID_NOT_FOUND</div>
+    <div class="error-sub">The tracking number you entered does not exist in our system. Please verify your tracking code and try again.</div>
+    <a href="index.html" class="error-btn"><span>← Return to Tracking</span></a>
+</div>
+```
+
 </main>
 
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2025 A1 INNOVECS Logistics. All rights reserved. | Professional Delivery Solutions</p>
+<footer>
+    <div class="footer-inner">
+        <div class="footer-copy">© 2025 A1 INNOVECS LOGISTICS // ALL RIGHTS RESERVED</div>
+        <div class="footer-copy">PROFESSIONAL DELIVERY SOLUTIONS</div>
     </div>
 </footer>
 
 <script>
+    // --- CURSOR ---
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = mx - 4 + 'px';
+        cursor.style.top = my - 4 + 'px';
+    });
+    (function animRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx - 16 + 'px';
+        ring.style.top = ry - 16 + 'px';
+        requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => { ring.style.width = ring.style.height = '50px'; ring.style.borderColor = 'rgba(0,245,255,0.8)'; });
+        el.addEventListener('mouseleave', () => { ring.style.width = ring.style.height = '32px'; ring.style.borderColor = 'rgba(0,245,255,0.5)'; });
+    });
+
+    // --- PARTICLES ---
+    const pContainer = document.getElementById('particles');
+    for (let i = 0; i < 25; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.cssText = `
+            left:${Math.random()*100}%;
+            animation-duration:${8+Math.random()*15}s;
+            animation-delay:${Math.random()*15}s;
+            --drift:${(Math.random()-0.5)*200}px;
+            ${Math.random()>0.5?'background:#7b2fff;box-shadow:0 0 6px #7b2fff;':''}
+        `;
+        pContainer.appendChild(p);
+    }
+
+    // --- VALID IDS ---
     const validTrackingNumbers = [
-        'A1X7K9M2P', 'B3N8R5Q1W', 'C9F2L6Y4T', 'D4H7V3Z8G', 'E6M1X9K5N',
-        'F8Q3B7R2S', 'G2W9T4J6L', 'H5Z8P1C3V', 'J7M4N9X2K', 'K1R6Q8F3B',
-        'L9Y2T7H5G', 'M3V8Z1W4P', 'N6K5L9R7Q', 'P4B3X8M1C', 'Q8F7V2N6J',
-        'R2G9K4T1Z', 'S5L8Q3W7Y', 'T9H6P2M4X', 'V1C7R5B8N', 'W3Z4K9L6Q'
+        'A1X7K9M2P','B3N8R5Q1W','C9F2L6Y4T','D4H7V3Z8G','E6M1X9K5N',
+        'F8Q3B7R2S','G2W9T4J6L','H5Z8P1C3V','J7M4N9X2K','K1R6Q8F3B',
+        'L9Y2T7H5G','M3V8Z1W4P','N6K5L9R7Q','P4B3X8M1C','Q8F7V2N6J',
+        'R2G9K4T1Z','S5L8Q3W7Y','T9H6P2M4X','V1C7R5B8N','W3Z4K9L6Q'
     ];
 
     const packageStatuses = [
-        'Out for Delivery',
-        'In Transit',
-        'Processing at Facility',
-        'Arrived at Destination',
-        'Ready for Pickup'
+        'Out for Delivery', 'In Transit', 'Processing at Facility',
+        'Arrived at Destination', 'Ready for Pickup'
     ];
 
-    // Function to check if this is a first-time visitor based on IP
-    function checkFirstTimeVisitor() {
-        const visitKey = 'tracking_visited';
-        const hasVisited = sessionStorage.getItem(visitKey);
-        
-        if (!hasVisited) {
-            sessionStorage.setItem(visitKey, 'true');
-            return true; // First time in this session
-        }
-        return false; // Returning visitor
-    }
-
-    // Function to get current date or October 11 based on visitor status
+    // --- DATES: always use today's date ---
     function getDisplayDates() {
-        const isFirstTime = checkFirstTimeVisitor();
-        
-        if (isFirstTime) {
-            // First-time visitor: show current dates
-            const now = new Date();
-            const today = now.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            
-            const time1 = '10:30 AM';
-            const time2 = '6:45 PM';
-            const time3 = '8:15 PM';
-            
-            return {
-                date1: `${today} - ${time1}`,
-                date2: `${today} - ${time2}`,
-                date3: `${today} - ${time3}`
-            };
-        } else {
-            // Returning visitor: show October 11, 2025
-            return {
-                date1: 'October 11, 2025 - 10:30 AM',
-                date2: 'October 11, 2025 - 6:45 PM',
-                date3: 'October 11, 2025 - 8:15 PM'
-            };
-        }
-    }
-
-    async function getUserLocation() {
-        try {
-            const services = [
-                'https://ipapi.co/json/',
-                'https://ipinfo.io/json'
-            ];
-
-            for (let service of services) {
-                try {
-                    const response = await fetch(service);
-                    const data = await response.json();
-
-                    if (service.includes('ipapi.co')) {
-                        if (data.city && data.region) {
-                            return `${data.city}, ${data.region}`;
-                        }
-                    } else if (service.includes('ipinfo.io')) {
-                        if (data.city && data.region) {
-                            return `${data.city}, ${data.region}`;
-                        }
-                    }
-                } catch (error) {
-                    console.log(`Service ${service} failed, trying next...`);
-                    continue;
-                }
-            }
-
-            return 'Your Location';
-        } catch (error) {
-            console.error('Error getting user location:', error);
-            return 'Your Location';
-        }
-    }
-
-    function getUrlParameter(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
-
-    function getRandomStatus() {
-        return packageStatuses[Math.floor(Math.random() * packageStatuses.length)];
-    }
-
-    function getCurrentDateTime() {
         const now = new Date();
-        return now.toLocaleDateString() + ' - ' + now.toLocaleTimeString();
+        const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+        return {
+            date1: `${dateStr} — 10:30 AM`,
+            date2: `${dateStr} — 06:45 PM`,
+            date3: `${dateStr} — 08:15 PM`
+        };
     }
 
-    function updateTimelineWithLocation(location) {
-        const timelineItems = document.querySelectorAll('.timeline-description');
-        if (timelineItems.length >= 3) {
-            timelineItems[2].textContent = `Your package is currently out for delivery to ${location}`;
-        }
-        if (timelineItems.length >= 4) {
-            timelineItems[3].textContent = `Package will be delivered to your address in ${location}`;
-        }
+    function getEstDelivery() {
+        const now = new Date();
+        return now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) + ' by 11:59 PM';
     }
 
-    function loadTrackingInfo() {
-        const trackingNumber = getUrlParameter('tracking');
+    // --- IP GEOLOCATION ---
+    async function getUserLocation() {
+        const services = ['https://ipapi.co/json/', 'https://ipinfo.io/json'];
+        for (const svc of services) {
+            try {
+                const r = await fetch(svc);
+                const d = await r.json();
+                const city = d.city, region = d.region || d.region_name;
+                if (city && region) return `${city}, ${region}`;
+            } catch(_) { continue; }
+        }
+        return 'Your Location';
+    }
+
+    function getUrlParam(name) {
+        return new URLSearchParams(window.location.search).get(name);
+    }
+
+    // --- MAIN INIT ---
+    async function loadTrackingInfo() {
+        const trackingId = getUrlParam('tracking');
         const locationPromise = getUserLocation();
 
-        setTimeout(async () => {
-            document.getElementById('loadingMessage').style.display = 'none';
+        await new Promise(r => setTimeout(r, 1500));
 
-            if (!trackingNumber || !validTrackingNumbers.includes(trackingNumber.toUpperCase())) {
-                document.getElementById('errorMessage').style.display = 'block';
-                return;
-            }
+        document.getElementById('loadingScreen').style.display = 'none';
 
-            document.getElementById('trackingNumber').textContent = trackingNumber.toUpperCase();
+        if (!trackingId || !validTrackingNumbers.includes(trackingId.toUpperCase())) {
+            document.getElementById('errorScreen').style.display = 'flex';
+            return;
+        }
 
-            const status = getRandomStatus();
-            const statusElement = document.getElementById('packageStatus');
-            statusElement.innerHTML = `<span class="status-badge status-in-transit">${status}</span>`;
+        // Populate data
+        document.getElementById('trackingNumber').textContent = trackingId.toUpperCase();
 
-            document.getElementById('lastUpdate').textContent = getCurrentDateTime();
+        const status = packageStatuses[Math.floor(Math.random() * packageStatuses.length)];
+        const badgeEl = document.getElementById('statusBadge');
+        badgeEl.innerHTML = `<span class="status-badge badge-transit"><span class="badge-dot" style="background:#b06aff;box-shadow:0 0 6px #b06aff;"></span>${status}</span>`;
 
-            // Update dates based on visitor status
-            const dates = getDisplayDates();
-            document.getElementById('date1').textContent = dates.date1;
-            document.getElementById('date2').textContent = dates.date2;
-            document.getElementById('date3').textContent = dates.date3;
+        const now = new Date();
+        document.getElementById('lastUpdate').textContent = now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'}) + ' — ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 
-            try {
-                const userLocation = await locationPromise;
-                document.getElementById('destination').textContent = userLocation;
-                updateTimelineWithLocation(userLocation);
-            } catch (error) {
-                document.getElementById('destination').textContent = 'Your Location';
-            }
+        const dates = getDisplayDates();
+        document.getElementById('date1').textContent = dates.date1;
+        document.getElementById('date2').textContent = dates.date2;
+        document.getElementById('date3').textContent = dates.date3;
+        document.getElementById('estDelivery').textContent = getEstDelivery();
+        document.getElementById('estDeliveryTime').textContent = 'Estimated: ' + getEstDelivery();
 
-            document.getElementById('trackingContent').style.display = 'block';
-        }, 1500);
+        // Location
+        try {
+            const loc = await locationPromise;
+            document.getElementById('destination').textContent = loc;
+            document.getElementById('outForDeliveryDesc').textContent = `Package is currently out for delivery to ${loc} and will arrive today.`;
+            document.getElementById('deliveredDesc').textContent = `Package will be delivered to your address in ${loc}.`;
+        } catch(_) {
+            document.getElementById('destination').textContent = 'Your Location';
+        }
+
+        document.getElementById('trackingContent').style.display = 'block';
     }
 
     document.addEventListener('DOMContentLoaded', loadTrackingInfo);
 </script>
-```
 
 </body>
 </html>
