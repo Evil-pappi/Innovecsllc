@@ -36,27 +36,19 @@
         cursor: none;
     }
 
-    /* CUSTOM CURSOR */
     .cursor {
-        position: fixed;
-        width: 8px; height: 8px;
-        background: var(--cyan);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 99999;
+        position: fixed; width: 8px; height: 8px;
+        background: var(--cyan); border-radius: 50%;
+        pointer-events: none; z-index: 99999;
         box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan);
     }
     .cursor-ring {
-        position: fixed;
-        width: 32px; height: 32px;
-        border: 1px solid rgba(0, 245, 255, 0.5);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 99998;
+        position: fixed; width: 32px; height: 32px;
+        border: 1px solid rgba(0, 245, 255, 0.5); border-radius: 50%;
+        pointer-events: none; z-index: 99998;
         transition: transform 0.15s ease, width 0.2s, height 0.2s;
     }
 
-    /* BACKGROUND */
     .bg-grid {
         position: fixed; inset: 0;
         background-image:
@@ -77,7 +69,6 @@
         pointer-events: none; z-index: 1;
     }
 
-    /* PARTICLES */
     .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
     .particle {
         position: absolute; width: 2px; height: 2px;
@@ -90,7 +81,6 @@
         100% { transform: translateY(-100px) translateX(var(--drift)); opacity: 0; }
     }
 
-    /* HEADER */
     header {
         position: fixed; top: 0; left: 0; right: 0;
         z-index: 1000; padding: 0 2rem;
@@ -122,31 +112,26 @@
         font-family: 'Orbitron', monospace;
         font-size: 0.7rem; font-weight: 700;
         letter-spacing: 2px; padding: 10px 22px;
-        background: transparent;
-        border: 1px solid var(--border);
+        background: transparent; border: 1px solid var(--border);
         color: var(--text-dim); border-radius: 4px;
         cursor: none; text-transform: uppercase;
         transition: all 0.3s; text-decoration: none;
         display: inline-block; position: relative; overflow: hidden;
     }
     .back-btn::before {
-        content: '';
-        position: absolute; inset: 0;
+        content: ''; position: absolute; inset: 0;
         background: rgba(0,245,255,0.08);
-        transform: translateX(-100%);
-        transition: transform 0.3s;
+        transform: translateX(-100%); transition: transform 0.3s;
     }
     .back-btn:hover::before { transform: translateX(0); }
     .back-btn:hover { color: var(--cyan); border-color: var(--cyan); }
 
-    /* MAIN */
     main {
         position: relative; z-index: 2;
         max-width: 1000px; margin: 0 auto;
         padding: 100px 2rem 4rem;
     }
 
-    /* LOADING */
     .loading-screen {
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;
@@ -154,10 +139,8 @@
     }
     .loader-ring {
         width: 64px; height: 64px;
-        border: 2px solid var(--border);
-        border-top-color: var(--cyan);
-        border-radius: 50%;
-        animation: spin-loader 0.8s linear infinite;
+        border: 2px solid var(--border); border-top-color: var(--cyan);
+        border-radius: 50%; animation: spin-loader 0.8s linear infinite;
     }
     @keyframes spin-loader { to { transform: rotate(360deg); } }
     .loading-text {
@@ -171,16 +154,11 @@
     }
     @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%{content:'...'} 80%,100%{content:''} }
 
-    /* TRACKING HEADER */
     .tracking-header {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 2rem 2.5rem;
-        margin-bottom: 1.5rem;
-        position: relative;
-        overflow: hidden;
-        animation: fadeInUp 0.5s ease forwards;
+        background: var(--panel); border: 1px solid var(--border);
+        border-radius: 12px; padding: 2rem 2.5rem;
+        margin-bottom: 1.5rem; position: relative;
+        overflow: hidden; animation: fadeInUp 0.5s ease forwards;
     }
     .tracking-header::before {
         content: '';
@@ -189,8 +167,7 @@
         box-shadow: 0 0 20px var(--cyan);
     }
     .tracking-header::after {
-        content: '';
-        position: absolute; inset: 0;
+        content: ''; position: absolute; inset: 0;
         background: linear-gradient(135deg, rgba(0,245,255,0.03) 0%, transparent 60%);
         pointer-events: none;
     }
@@ -201,15 +178,12 @@
     .header-label {
         font-family: 'Share Tech Mono', monospace;
         font-size: 0.7rem; color: var(--text-dim);
-        letter-spacing: 3px; text-transform: uppercase;
-        margin-bottom: 0.5rem;
+        letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem;
     }
     .tracking-id {
         font-family: 'Orbitron', monospace;
-        font-size: 1.8rem; font-weight: 700;
-        color: var(--cyan);
-        text-shadow: 0 0 20px rgba(0,245,255,0.4);
-        letter-spacing: 4px;
+        font-size: 1.8rem; font-weight: 700; color: var(--cyan);
+        text-shadow: 0 0 20px rgba(0,245,255,0.4); letter-spacing: 4px;
     }
     .status-badge {
         font-family: 'Orbitron', monospace;
@@ -220,18 +194,7 @@
     }
     .badge-transit {
         background: rgba(123,47,255,0.2);
-        border: 1px solid rgba(123,47,255,0.5);
-        color: #b06aff;
-    }
-    .badge-delivered {
-        background: rgba(0,255,136,0.15);
-        border: 1px solid rgba(0,255,136,0.4);
-        color: var(--neon-green);
-    }
-    .badge-pending {
-        background: rgba(255,140,0,0.15);
-        border: 1px solid rgba(255,140,0,0.4);
-        color: var(--neon-orange);
+        border: 1px solid rgba(123,47,255,0.5); color: #b06aff;
     }
     .badge-dot {
         width: 6px; height: 6px; border-radius: 50%;
@@ -239,25 +202,18 @@
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    /* DETAILS GRID */
     .details-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 1.5rem; margin-bottom: 1.5rem;
         animation: fadeInUp 0.5s 0.1s ease both;
     }
     .detail-panel {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 1.5rem;
-        position: relative;
+        background: var(--panel); border: 1px solid var(--border);
+        border-radius: 10px; padding: 1.5rem; position: relative;
     }
     .detail-panel::before {
         content: '';
-        position: absolute; left: 0; top: 20%; bottom: 20%;
-        width: 2px;
+        position: absolute; left: 0; top: 20%; bottom: 20%; width: 2px;
         background: linear-gradient(180deg, transparent, var(--cyan), transparent);
     }
     .panel-heading {
@@ -269,69 +225,53 @@
     }
     .detail-row {
         display: flex; justify-content: space-between;
-        align-items: flex-start; padding: 0.5rem 0;
-        font-size: 0.95rem;
+        align-items: flex-start; padding: 0.5rem 0; font-size: 0.95rem;
     }
     .detail-row:not(:last-child) { border-bottom: 1px solid rgba(0,245,255,0.06); }
     .d-label { color: var(--text-dim); font-weight: 400; }
-    .d-value { color: var(--text); font-weight: 600; text-align: right; max-width: 55%; }
+    .d-value { color: var(--text); font-weight: 600; text-align: right; max-width: 60%; }
 
-    /* TIMELINE */
     .timeline-panel {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 2rem 2.5rem;
+        background: var(--panel); border: 1px solid var(--border);
+        border-radius: 10px; padding: 2rem 2.5rem;
         margin-bottom: 1.5rem;
         animation: fadeInUp 0.5s 0.2s ease both;
     }
     .panel-title {
         font-family: 'Orbitron', monospace;
         font-size: 0.9rem; font-weight: 700;
-        color: white; letter-spacing: 2px;
-        margin-bottom: 2rem;
+        color: white; letter-spacing: 2px; margin-bottom: 2rem;
         display: flex; align-items: center; gap: 10px;
     }
     .panel-title::after {
-        content: '';
-        flex: 1; height: 1px;
+        content: ''; flex: 1; height: 1px;
         background: linear-gradient(90deg, var(--border), transparent);
     }
 
     .timeline { position: relative; }
     .tl-item {
         display: flex; align-items: flex-start;
-        gap: 1.5rem; padding-bottom: 2rem;
-        position: relative;
+        gap: 1.5rem; padding-bottom: 2rem; position: relative;
     }
     .tl-item:last-child { padding-bottom: 0; }
-    .tl-left {
-        display: flex; flex-direction: column;
-        align-items: center; flex-shrink: 0;
-    }
+    .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
     .tl-icon {
-        width: 44px; height: 44px;
-        border-radius: 50%;
+        width: 44px; height: 44px; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 1rem; position: relative; z-index: 1;
-        flex-shrink: 0;
+        font-size: 1rem; position: relative; z-index: 1; flex-shrink: 0;
     }
     .tl-icon.done {
         background: rgba(0,255,136,0.15);
-        border: 1px solid rgba(0,255,136,0.4);
-        color: var(--neon-green);
+        border: 1px solid rgba(0,255,136,0.4); color: var(--neon-green);
     }
     .tl-icon.active {
-        background: rgba(0,245,255,0.1);
-        border: 1px solid var(--cyan);
-        color: var(--cyan);
-        box-shadow: 0 0 20px rgba(0,245,255,0.2);
+        background: rgba(0,245,255,0.1); border: 1px solid var(--cyan);
+        color: var(--cyan); box-shadow: 0 0 20px rgba(0,245,255,0.2);
         animation: pulse-icon 2s infinite;
     }
     .tl-icon.waiting {
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
-        color: var(--text-dim);
+        border: 1px solid rgba(255,255,255,0.08); color: var(--text-dim);
     }
     @keyframes pulse-icon {
         0%,100% { box-shadow: 0 0 20px rgba(0,245,255,0.2); }
@@ -353,21 +293,17 @@
     .tl-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 0.4rem; }
     .tl-time {
         font-family: 'Share Tech Mono', monospace;
-        font-size: 0.72rem; color: var(--text-dim);
-        letter-spacing: 1px;
+        font-size: 0.72rem; color: var(--text-dim); letter-spacing: 1px;
     }
     .tl-time.active { color: var(--cyan); }
 
-    /* FEE ALERT */
+    /* BOTTOM BANNERS */
     .fee-alert {
-        background: rgba(255, 68, 88, 0.06);
-        border: 1px solid rgba(255, 68, 88, 0.3);
-        border-radius: 12px;
-        padding: 2.5rem;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        animation: fadeInUp 0.5s 0.3s ease both;
+        background: rgba(255,68,88,0.06);
+        border: 1px solid rgba(255,68,88,0.3);
+        border-radius: 12px; padding: 2.5rem;
+        text-align: center; position: relative;
+        overflow: hidden; animation: fadeInUp 0.5s 0.3s ease both;
     }
     .fee-alert::before {
         content: '';
@@ -376,48 +312,59 @@
         box-shadow: 0 0 20px var(--neon-red);
     }
     .fee-alert::after {
-        content: '';
-        position: absolute; inset: 0;
+        content: ''; position: absolute; inset: 0;
         background: radial-gradient(ellipse at top, rgba(255,68,88,0.05) 0%, transparent 70%);
         pointer-events: none;
     }
+
+    .success-banner {
+        background: rgba(0,255,136,0.05);
+        border: 1px solid rgba(0,255,136,0.25);
+        border-radius: 12px; padding: 2.5rem;
+        text-align: center; position: relative;
+        overflow: hidden; animation: fadeInUp 0.5s 0.3s ease both;
+    }
+    .success-banner::before {
+        content: '';
+        position: absolute; top: -1px; left: 30px; right: 30px; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        box-shadow: 0 0 20px var(--neon-green);
+    }
+    .success-banner::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(0,255,136,0.04) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
     .alert-icon { font-size: 2rem; margin-bottom: 0.75rem; }
     .alert-tag {
         font-family: 'Share Tech Mono', monospace;
         font-size: 0.7rem; letter-spacing: 4px;
-        color: var(--neon-red); text-transform: uppercase;
-        margin-bottom: 0.5rem;
+        text-transform: uppercase; margin-bottom: 0.5rem;
     }
+    .alert-tag.red { color: var(--neon-red); }
+    .alert-tag.green { color: var(--neon-green); }
     .alert-title {
         font-family: 'Orbitron', monospace;
         font-size: 1rem; font-weight: 700;
-        color: white; letter-spacing: 2px;
-        margin-bottom: 1rem;
+        color: white; letter-spacing: 2px; margin-bottom: 1rem;
     }
     .fee-amount {
         font-family: 'Orbitron', monospace;
         font-size: 3rem; font-weight: 900;
         color: var(--neon-red);
         text-shadow: 0 0 30px rgba(255,68,88,0.4);
-        margin-bottom: 0.5rem;
-        letter-spacing: 2px;
+        margin-bottom: 0.5rem; letter-spacing: 2px;
     }
-    .fee-desc {
+    .alert-desc {
         font-size: 1rem; color: var(--text-dim);
-        max-width: 500px; margin: 0 auto 2rem;
-        line-height: 1.7;
+        max-width: 500px; margin: 0 auto 2rem; line-height: 1.7;
     }
-    .contact-strip {
-        display: flex; gap: 1rem;
-        justify-content: center; flex-wrap: wrap;
-    }
+    .contact-strip { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .contact-chip {
-        background: rgba(0,245,255,0.05);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 0.85rem 1.25rem;
-        display: flex; align-items: center; gap: 10px;
-        transition: border-color 0.3s;
+        background: rgba(0,245,255,0.05); border: 1px solid var(--border);
+        border-radius: 8px; padding: 0.85rem 1.25rem;
+        display: flex; align-items: center; gap: 10px; transition: border-color 0.3s;
     }
     .contact-chip:hover { border-color: var(--cyan); }
     .chip-label {
@@ -427,32 +374,27 @@
     }
     .chip-val { font-size: 0.9rem; color: var(--cyan); font-weight: 600; }
 
-    /* ERROR */
     .error-screen {
         display: flex; flex-direction: column;
         align-items: center; text-align: center;
         padding: 5rem 2rem; gap: 1rem;
     }
     .error-code {
-        font-family: 'Orbitron', monospace;
-        font-size: 4rem; font-weight: 900;
-        color: var(--neon-red);
-        text-shadow: 0 0 30px rgba(255,68,88,0.4);
+        font-family: 'Orbitron', monospace; font-size: 4rem; font-weight: 900;
+        color: var(--neon-red); text-shadow: 0 0 30px rgba(255,68,88,0.4);
     }
     .error-msg {
         font-family: 'Share Tech Mono', monospace;
-        font-size: 0.85rem; color: var(--text-dim);
-        letter-spacing: 2px;
+        font-size: 0.85rem; color: var(--text-dim); letter-spacing: 2px;
     }
     .error-sub { font-size: 1rem; color: var(--text-dim); max-width: 400px; line-height: 1.6; margin-top: 0.5rem; }
     .error-btn {
         font-family: 'Orbitron', monospace;
         font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
         padding: 12px 28px; border: 1px solid var(--cyan);
-        color: var(--cyan); border-radius: 4px;
-        text-decoration: none; text-transform: uppercase;
-        transition: all 0.3s; margin-top: 1rem; cursor: none;
-        display: inline-block; position: relative; overflow: hidden;
+        color: var(--cyan); border-radius: 4px; text-decoration: none;
+        text-transform: uppercase; transition: all 0.3s; margin-top: 1rem;
+        cursor: none; display: inline-block; position: relative; overflow: hidden;
     }
     .error-btn::before {
         content: ''; position: absolute; inset: 0;
@@ -462,12 +404,10 @@
     .error-btn:hover { color: var(--dark); box-shadow: 0 0 30px rgba(0,245,255,0.4); }
     .error-btn span { position: relative; z-index: 1; }
 
-    /* FOOTER */
     footer {
         position: relative; z-index: 2;
         border-top: 1px solid var(--border);
-        padding: 2.5rem 2rem;
-        background: rgba(0,0,0,0.3);
+        padding: 2.5rem 2rem; background: rgba(0,0,0,0.3);
     }
     .footer-inner {
         max-width: 1300px; margin: 0 auto;
@@ -513,17 +453,14 @@
 </header>
 
 <main>
-    <!-- LOADING -->
     <div id="loadingScreen" class="loading-screen">
         <div class="loader-ring"></div>
         <div class="loading-text">Scanning package data<span class="loading-dots"></span></div>
     </div>
 
 ```
-<!-- CONTENT (hidden until loaded) -->
 <div id="trackingContent" style="display:none;">
 
-    <!-- Header -->
     <div class="tracking-header">
         <div class="header-top">
             <div>
@@ -534,21 +471,20 @@
         </div>
     </div>
 
-    <!-- Details -->
     <div class="details-grid">
         <div class="detail-panel">
             <div class="panel-heading">// Package Info</div>
             <div class="detail-row">
                 <span class="d-label">Service</span>
-                <span class="d-value">Express Delivery</span>
+                <span class="d-value" id="pkgService">Express Delivery</span>
             </div>
             <div class="detail-row">
-                <span class="d-label">Weight</span>
-                <span class="d-value">2.5 lbs</span>
+                <span class="d-label">Sender</span>
+                <span class="d-value" id="pkgSender">—</span>
             </div>
             <div class="detail-row">
-                <span class="d-label">Dimensions</span>
-                <span class="d-value">12″ × 8″ × 4″</span>
+                <span class="d-label">Dispatched</span>
+                <span class="d-value" id="pkgDispatched">—</span>
             </div>
             <div class="detail-row">
                 <span class="d-label">Last Update</span>
@@ -559,7 +495,7 @@
             <div class="panel-heading">// Shipment Route</div>
             <div class="detail-row">
                 <span class="d-label">Origin</span>
-                <span class="d-value">Niagara Falls, NY</span>
+                <span class="d-value" id="pkgOrigin">Niagara Falls, NY</span>
             </div>
             <div class="detail-row">
                 <span class="d-label">Destination</span>
@@ -576,99 +512,15 @@
         </div>
     </div>
 
-    <!-- Timeline -->
     <div class="timeline-panel">
         <div class="panel-title">Tracking Timeline</div>
-        <div class="timeline">
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <div class="tl-icon done">✓</div>
-                    <div class="tl-line"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-title">Package Processed</div>
-                    <div class="tl-desc">Package received and processed at the Niagara Falls facility. All checks passed.</div>
-                    <div class="tl-time" id="date1">—</div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <div class="tl-icon done">✓</div>
-                    <div class="tl-line"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-title">In Transit</div>
-                    <div class="tl-desc">Package departed origin facility and is en route to the destination hub.</div>
-                    <div class="tl-time" id="date2">—</div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <div class="tl-icon active">🚚</div>
-                    <div class="tl-line"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-title">Out for Delivery</div>
-                    <div class="tl-desc" id="outForDeliveryDesc">Package is currently out for delivery and will arrive today.</div>
-                    <div class="tl-time active" id="date3">—</div>
-                </div>
-            </div>
-
-            <div class="tl-item">
-                <div class="tl-left">
-                    <div class="tl-icon waiting">📬</div>
-                    <div class="tl-line"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-title dim">Delivered</div>
-                    <div class="tl-desc" id="deliveredDesc">Package will be delivered to your specified address.</div>
-                    <div class="tl-time" id="estDeliveryTime">—</div>
-                </div>
-            </div>
-
-        </div>
+        <div class="timeline" id="timeline"></div>
     </div>
 
-    <!-- Fee Alert -->
-    <div class="fee-alert">
-        <div class="alert-icon">⚠</div>
-        <div class="alert-tag">// ACTION REQUIRED</div>
-        <div class="alert-title">DELIVERY FEE PENDING</div>
-        <div class="fee-amount">$200.00</div>
-        <div class="fee-desc">
-            A delivery fee is currently pending for this package. Please contact our support team to complete payment and ensure successful delivery.
-        </div>
-        <div class="contact-strip">
-            <div class="contact-chip">
-                <span>📧</span>
-                <div>
-                    <span class="chip-label">EMAIL</span>
-                    <span class="chip-val">support@innovecsllc.com</span>
-                </div>
-            </div>
-            <div class="contact-chip">
-                <span>✈️</span>
-                <div>
-                    <span class="chip-label">TELEGRAM</span>
-                    <span class="chip-val">@innovecssupport</span>
-                </div>
-            </div>
-            <div class="contact-chip">
-                <span>🟢</span>
-                <div>
-                    <span class="chip-label">SUPPORT</span>
-                    <span class="chip-val">24 / 7 Live</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="bottomBanner"></div>
 
 </div>
 
-<!-- ERROR -->
 <div id="errorScreen" style="display:none;" class="error-screen">
     <div class="error-code">404</div>
     <div class="error-msg">// ERR — TRACKING_ID_NOT_FOUND</div>
@@ -723,7 +575,7 @@
         pContainer.appendChild(p);
     }
 
-    // --- VALID IDS ---
+    // --- VALID IDs ---
     const validTrackingNumbers = [
         'A1X7K9M2P','B3N8R5Q1W','C9F2L6Y4T','D4H7V3Z8G','E6M1X9K5N',
         'F8Q3B7R2S','G2W9T4J6L','H5Z8P1C3V','J7M4N9X2K','K1R6Q8F3B',
@@ -731,28 +583,123 @@
         'R2G9K4T1Z','S5L8Q3W7Y','T9H6P2M4X','V1C7R5B8N','W3Z4K9L6Q'
     ];
 
+    // --- PACKAGE-SPECIFIC OVERRIDES ---
+    // Add any custom tracking IDs here with their own data
+    const packageOverrides = {
+        'N6K5L9R7Q': {
+            service: 'International Express',
+            sender: 'Dylan Wang',
+            origin: 'Beijing, China',
+            destination: 'Barongan 493, Barangay Tambac\nMalasiqui, Pangasinan — Purok 5',
+            dispatched: 'February 21, 2025',
+            estDelivery: 'February 23, 2025',
+            status: 'Out for Delivery',
+            feesCleared: true,
+            timeline: [
+                {
+                    icon: 'done', symbol: '✓',
+                    title: 'Package Dispatched',
+                    desc: 'Package collected by sender and dispatched from Beijing International Logistics Hub.',
+                    time: 'February 21, 2025 — 09:14 AM'
+                },
+                {
+                    icon: 'done', symbol: '✓',
+                    title: 'Departed Origin Country',
+                    desc: 'Package cleared PRC export customs at Beijing Capital Airport and boarded international freight.',
+                    time: 'February 21, 2025 — 11:50 PM'
+                },
+                {
+                    icon: 'done', symbol: '✓',
+                    title: 'Arrived in Philippines',
+                    desc: 'Package landed at NAIA cargo terminal and entered Philippine Bureau of Customs processing.',
+                    time: 'February 22, 2025 — 03:30 PM'
+                },
+                {
+                    icon: 'done', symbol: '✓',
+                    title: 'Customs Cleared',
+                    desc: 'All import duties settled in full. Package released and forwarded to regional hub in Pangasinan.',
+                    time: 'February 22, 2025 — 08:45 PM'
+                },
+                {
+                    icon: 'active', symbol: '🚚',
+                    title: 'Out for Delivery',
+                    desc: 'Package is out for delivery to Barongan 493, Barangay Tambac, Malasiqui, Pangasinan.',
+                    time: 'February 23, 2025 — 08:00 AM',
+                    active: true
+                },
+                {
+                    icon: 'waiting', symbol: '📬',
+                    title: 'Delivered',
+                    desc: 'Scheduled for delivery to Malasiqui, Pangasinan on February 23, 2025.',
+                    time: 'Estimated: February 23, 2025 by 11:59 PM',
+                    dim: true
+                }
+            ]
+        }
+    };
+
     const packageStatuses = [
-        'Out for Delivery', 'In Transit', 'Processing at Facility',
-        'Arrived at Destination', 'Ready for Pickup'
+        'Out for Delivery','In Transit','Processing at Facility',
+        'Arrived at Destination','Ready for Pickup'
     ];
 
-    // --- DATES: always use today's date ---
-    function getDisplayDates() {
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-        return {
-            date1: `${dateStr} — 10:30 AM`,
-            date2: `${dateStr} — 06:45 PM`,
-            date3: `${dateStr} — 08:15 PM`
-        };
+    const CONTACT_CHIPS = `
+        <div class="contact-strip">
+            <div class="contact-chip"><span>📧</span><div><span class="chip-label">EMAIL</span><span class="chip-val">support@innovecsllc.com</span></div></div>
+            <div class="contact-chip"><span>✈️</span><div><span class="chip-label">TELEGRAM</span><span class="chip-val">@innovecssupport</span></div></div>
+            <div class="contact-chip"><span>🟢</span><div><span class="chip-label">SUPPORT</span><span class="chip-val">24 / 7 Live</span></div></div>
+        </div>`;
+
+    function buildTimeline(items) {
+        document.getElementById('timeline').innerHTML = items.map(item => `
+            <div class="tl-item">
+                <div class="tl-left">
+                    <div class="tl-icon ${item.icon}">${item.symbol}</div>
+                    <div class="tl-line"></div>
+                </div>
+                <div class="tl-content">
+                    <div class="tl-title${item.dim ? ' dim' : ''}">${item.title}</div>
+                    <div class="tl-desc">${item.desc}</div>
+                    <div class="tl-time${item.active ? ' active' : ''}">${item.time}</div>
+                </div>
+            </div>`).join('');
     }
 
-    function getEstDelivery() {
+    function buildGenericTimeline(loc) {
         const now = new Date();
-        return now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) + ' by 11:59 PM';
+        const d = now.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+        buildTimeline([
+            { icon:'done', symbol:'✓', title:'Package Processed', desc:'Package received and processed at the Niagara Falls facility. All checks passed.', time:`${d} — 10:30 AM` },
+            { icon:'done', symbol:'✓', title:'In Transit', desc:'Package departed origin facility and is en route to the destination hub.', time:`${d} — 06:45 PM` },
+            { icon:'active', symbol:'🚚', title:'Out for Delivery', desc:`Package is currently out for delivery to ${loc} and will arrive today.`, time:`${d} — 08:15 PM`, active:true },
+            { icon:'waiting', symbol:'📬', title:'Delivered', desc:`Package will be delivered to your address in ${loc}.`, time:'Estimated: Today by 11:59 PM', dim:true }
+        ]);
     }
 
-    // --- IP GEOLOCATION ---
+    function renderBanner(feesCleared, customDesc) {
+        const el = document.getElementById('bottomBanner');
+        if (feesCleared) {
+            el.innerHTML = `
+                <div class="success-banner">
+                    <div class="alert-icon">✅</div>
+                    <div class="alert-tag green">// SHIPMENT STATUS</div>
+                    <div class="alert-title">CUSTOMS CLEARED — DELIVERY IN PROGRESS</div>
+                    <div class="alert-desc">${customDesc || 'All customs and delivery charges have been settled in full. Your package is on its way — no further action is required.'}</div>
+                    ${CONTACT_CHIPS}
+                </div>`;
+        } else {
+            el.innerHTML = `
+                <div class="fee-alert">
+                    <div class="alert-icon">⚠</div>
+                    <div class="alert-tag red">// ACTION REQUIRED</div>
+                    <div class="alert-title">DELIVERY FEE PENDING</div>
+                    <div class="fee-amount">$200.00</div>
+                    <div class="alert-desc">A delivery fee is currently pending for this package. Please contact our support team to complete payment and ensure successful delivery.</div>
+                    ${CONTACT_CHIPS}
+                </div>`;
+        }
+    }
+
     async function getUserLocation() {
         const services = ['https://ipapi.co/json/', 'https://ipinfo.io/json'];
         for (const svc of services) {
@@ -770,13 +717,11 @@
         return new URLSearchParams(window.location.search).get(name);
     }
 
-    // --- MAIN INIT ---
     async function loadTrackingInfo() {
         const trackingId = getUrlParam('tracking');
         const locationPromise = getUserLocation();
 
         await new Promise(r => setTimeout(r, 1500));
-
         document.getElementById('loadingScreen').style.display = 'none';
 
         if (!trackingId || !validTrackingNumbers.includes(trackingId.toUpperCase())) {
@@ -784,31 +729,44 @@
             return;
         }
 
-        // Populate data
-        document.getElementById('trackingNumber').textContent = trackingId.toUpperCase();
-
-        const status = packageStatuses[Math.floor(Math.random() * packageStatuses.length)];
-        const badgeEl = document.getElementById('statusBadge');
-        badgeEl.innerHTML = `<span class="status-badge badge-transit"><span class="badge-dot" style="background:#b06aff;box-shadow:0 0 6px #b06aff;"></span>${status}</span>`;
-
+        const id = trackingId.toUpperCase();
+        const pkg = packageOverrides[id];
         const now = new Date();
-        document.getElementById('lastUpdate').textContent = now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'}) + ' — ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 
-        const dates = getDisplayDates();
-        document.getElementById('date1').textContent = dates.date1;
-        document.getElementById('date2').textContent = dates.date2;
-        document.getElementById('date3').textContent = dates.date3;
-        document.getElementById('estDelivery').textContent = getEstDelivery();
-        document.getElementById('estDeliveryTime').textContent = 'Estimated: ' + getEstDelivery();
+        document.getElementById('trackingNumber').textContent = id;
 
-        // Location
-        try {
-            const loc = await locationPromise;
+        const status = pkg ? pkg.status : packageStatuses[Math.floor(Math.random() * packageStatuses.length)];
+        document.getElementById('statusBadge').innerHTML =
+            `<span class="status-badge badge-transit"><span class="badge-dot" style="background:#b06aff;box-shadow:0 0 6px #b06aff;"></span>${status}</span>`;
+
+        document.getElementById('lastUpdate').textContent =
+            now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'}) + ' — ' +
+            now.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+
+        if (pkg) {
+            // Specific package data
+            document.getElementById('pkgService').textContent = pkg.service;
+            document.getElementById('pkgSender').textContent = pkg.sender;
+            document.getElementById('pkgOrigin').textContent = pkg.origin;
+            document.getElementById('pkgDispatched').textContent = pkg.dispatched;
+            document.getElementById('destination').innerHTML = pkg.destination.replace(/\n/g, '<br>');
+            document.getElementById('estDelivery').textContent = pkg.estDelivery;
+            buildTimeline(pkg.timeline);
+            renderBanner(true, 'All customs duties for this international shipment from Beijing, China have been settled in full. Your package from Dylan Wang is out for delivery — no further action is required.');
+        } else {
+            // Generic flow with IP location
+            document.getElementById('pkgService').textContent = 'Express Delivery';
+            document.getElementById('pkgSender').textContent = 'Sender';
+            document.getElementById('pkgOrigin').textContent = 'Niagara Falls, NY';
+            document.getElementById('pkgDispatched').textContent = now.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+            document.getElementById('estDelivery').textContent =
+                now.toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) + ' by 11:59 PM';
+
+            let loc = 'Your Location';
+            try { loc = await locationPromise; } catch(_) {}
             document.getElementById('destination').textContent = loc;
-            document.getElementById('outForDeliveryDesc').textContent = `Package is currently out for delivery to ${loc} and will arrive today.`;
-            document.getElementById('deliveredDesc').textContent = `Package will be delivered to your address in ${loc}.`;
-        } catch(_) {
-            document.getElementById('destination').textContent = 'Your Location';
+            buildGenericTimeline(loc);
+            renderBanner(false);
         }
 
         document.getElementById('trackingContent').style.display = 'block';
