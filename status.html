@@ -616,8 +616,8 @@
                 },
                 {
                     icon: 'done', symbol: '✓',
-                    title: 'Customs Cleared',
-                    desc: 'All import duties settled in full. Package released and forwarded to regional hub in Pangasinan.',
+                    title: 'Customs Awaitinh',
+                    desc: 'we're awaiting custom clearance fee im order to proceed with your delivery, delivery fee is paid',
                     time: 'February 22, 2025 — 08:45 PM'
                 },
                 {
@@ -669,7 +669,7 @@
         const now = new Date();
         const d = now.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
         buildTimeline([
-            { icon:'done', symbol:'✓', title:'Package Processed', desc:'Package received and processed at the Niagara Falls facility. All checks passed.', time:`${d} — 10:30 AM` },
+            { icon:'done', symbol:'✓', title:'Package Processed', desc:'Package received and processed at the Beijing facility. All checks passed.', time:`${d} — 10:30 AM` },
             { icon:'done', symbol:'✓', title:'In Transit', desc:'Package departed origin facility and is en route to the destination hub.', time:`${d} — 06:45 PM` },
             { icon:'active', symbol:'🚚', title:'Out for Delivery', desc:`Package is currently out for delivery to ${loc} and will arrive today.`, time:`${d} — 08:15 PM`, active:true },
             { icon:'waiting', symbol:'📬', title:'Delivered', desc:`Package will be delivered to your address in ${loc}.`, time:'Estimated: Today by 11:59 PM', dim:true }
